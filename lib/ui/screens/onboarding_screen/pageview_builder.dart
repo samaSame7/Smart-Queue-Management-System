@@ -20,13 +20,10 @@ class PageviewBuilder extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         var page = AppConstants.pages[index];
-        return Container(
-          alignment: Alignment.bottomCenter,
-          child: Image.asset(
-            page['image']!,
-            fit: BoxFit.contain,
-            width: MediaQuery.of(context).size.width * 0.85,
-          ),
+        return Image.asset(
+          page['image']!,
+          fit: BoxFit.fill,
+          width: double.infinity,
         );
       },
     );

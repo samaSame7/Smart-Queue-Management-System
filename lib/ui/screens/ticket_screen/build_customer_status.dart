@@ -7,10 +7,14 @@ class BuildCustomerStatus extends StatelessWidget {
     super.key,
     required this.decoration,
     required this.statusLabel,
+    this.statusColor,
+    this.statusTextColor,
   });
 
   final BoxDecoration decoration;
   final String statusLabel;
+  final Color? statusColor;
+  final Color? statusTextColor;
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +27,16 @@ class BuildCustomerStatus extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
             decoration: BoxDecoration(
-              color: AppColors.gray,
+              color: statusColor ?? AppColors.gray,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Text(statusLabel, style: AppStyles.blue16regular),
+            child: Text(
+              statusLabel,
+              style: AppStyles.blue16regular.copyWith(
+                color: statusTextColor ?? AppColors.darkBlue,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
           const Row(
             children: [

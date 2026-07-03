@@ -81,13 +81,13 @@ class _BookingScreenState extends State<BookingScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: Alignment.centerRight,
                   child: IconButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
                     icon: const Icon(
-                      Icons.west_rounded,
+                      Icons.east_rounded,
                       size: 24,
                       color: AppColors.darkBlue,
                     ),
@@ -155,6 +155,7 @@ class _BookingScreenState extends State<BookingScreen> {
                 ),
                 const SizedBox(height: 20),
                 AppButton(
+                  isLoading: _isCreatingTicket,
                   onPress: () async {
                     if (_isLoadingServices || _isCreatingTicket) return;
 

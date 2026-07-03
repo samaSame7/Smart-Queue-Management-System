@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/utils/responsive_extensions.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_styles.dart';
 import '../../widgets/app_constants.dart';
@@ -61,13 +62,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: Container(
                 color: AppColors.babyBlue,
                 width: double.infinity,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+                padding: EdgeInsets.symmetric(
+                  horizontal: context.width(0.15),
+                  vertical: context.height(0.02),
+                ),
                 child: Column(
                   children: [
-                    const SizedBox(height: 10),
+                    SizedBox(height: context.height(0.01)),
                     NavigationBuilder(currentIndex: _currentIndex),
-                    const SizedBox(height: 10),
+                    SizedBox(height: context.height(0.02)),
                     Expanded(
                       child: PageView.builder(
                         controller: _textController,
@@ -78,7 +81,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             child: Text(
                               AppConstants.pages[index]['desc']!,
                               textAlign: TextAlign.center,
-                              style: AppStyles.blue50regular,
+                              style: AppStyles.blue50regular.copyWith(
+                                fontSize: context.sp(32),
+                              ),
                             ),
                           );
                         },
@@ -88,15 +93,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       currentIndex: _currentIndex,
                       imageController: _imageController,
                     ),
-                    if (_currentIndex ==
-                        AppConstants.pages.length - 1) ...[
-                      const SizedBox(height: 8),
-                      const Text(
+                    if (_currentIndex == AppConstants.pages.length - 1) ...[
+                      SizedBox(height: context.height(0.01)),
+                      Text(
                         "ابدأ الآن",
-                        style: AppStyles.blue26regular,
+                        style: AppStyles.blue26regular.copyWith(
+                          fontSize: context.sp(22),
+                        ),
                       ),
                     ],
-                    const SizedBox(height: 20,)
+                    SizedBox(height: context.height(0.02))
                   ],
                 ),
               ),

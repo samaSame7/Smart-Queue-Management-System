@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/utils/responsive_extensions.dart';
 import '../../utils/app_colors.dart';
 import '../../widgets/app_constants.dart';
 
@@ -16,11 +17,11 @@ class NavigationBuilder extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(
         AppConstants.pages.length,
-            (index) => AnimatedContainer(
+        (index) => AnimatedContainer(
           duration: const Duration(milliseconds: 300),
-          margin: const EdgeInsets.symmetric(horizontal: 4),
-          height: 8,
-          width: currentIndex == index ? 35 : 8,
+          margin: EdgeInsets.symmetric(horizontal: context.width(0.01)),
+          height: context.height(0.01),
+          width: currentIndex == index ? context.width(0.1) : context.width(0.02),
           decoration: BoxDecoration(
             color: currentIndex == index
                 ? AppColors.blue

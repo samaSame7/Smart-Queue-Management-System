@@ -46,6 +46,36 @@ class _TicketScreenState extends State<TicketScreen> {
     }
   }
 
+  Color _statusColor(String status) {
+    switch (status) {
+      case 'in_progress':
+        return Colors.orange.shade100;
+      case 'finished':
+        return Colors.green.shade100;
+      case 'canceled':
+        return Colors.red.shade100;
+      case 'skipped':
+        return Colors.grey.shade300;
+      default:
+        return AppColors.gray;
+    }
+  }
+
+  Color _statusTextColor(String status) {
+    switch (status) {
+      case 'in_progress':
+        return Colors.orange.shade900;
+      case 'finished':
+        return Colors.green.shade900;
+      case 'canceled':
+        return Colors.red.shade900;
+      case 'skipped':
+        return Colors.grey.shade800;
+      default:
+        return AppColors.darkBlue;
+    }
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -159,6 +189,8 @@ class _TicketScreenState extends State<TicketScreen> {
               BuildCustomerStatus(
                 decoration: decoration,
                 statusLabel: _statusLabel(_status),
+                statusColor: _statusColor(_status),
+                statusTextColor: _statusTextColor(_status),
               ),
               const Spacer(),
               AppButton(
@@ -166,15 +198,16 @@ class _TicketScreenState extends State<TicketScreen> {
                   Navigator.pushNamed(context, ThanksScreen.routeName);
                 },
                 text: 'إنهاء',
-                bkColor: AppColors.blue,
-                foreColor: AppColors.white,
+                bkColor: AppColors.white,
+                foreColor: AppColors.darkBlue,
+                isDisabled: _status != 'finished',
               ),
               const SizedBox(height: 10),
               AppButton(
                 onPress: _cancelTicket,
                 text: 'إلغاء التذكرة',
-                bkColor: AppColors.gray,
-                foreColor: AppColors.darkBlue,
+                bkColor: AppColors.blue,
+                foreColor: AppColors.white,
               ),
               const SizedBox(height: 20),
             ],
