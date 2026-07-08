@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/utils/responsive_extensions.dart';
 import '../../utils/app_assets.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_styles.dart';
@@ -18,50 +19,52 @@ class MainScreen extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
             backgroundColor: AppColors.white,
-            body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 26),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 15),
-                  const Text(
-                    "ازاي نقدر نساعدك؟",
-                    style: AppStyles.blue34regular,
-                  ),
-                  const SizedBox(height: 22),
-                  Image.asset(
-                    AppAssets.mainImg,
-                    height: MediaQuery.of(context).size.height * .35,
-                  ),
-                  const SizedBox(height: 40),
-                  AppButton(
-                    text: "الاسئلة الشائعة",
-                    icon: Icons.question_answer_rounded,
-                    onPress: () {
-                      Navigator.pushNamed(context, FaqScreen.routeName);
-                    },
-                    bkColor: AppColors.blue,
-                  ),
-                  const SizedBox(height: 20),
-                  AppButton(
-                    text: "متطلبات الخدمات",
-                    icon: Icons.list_alt_rounded,
-                    onPress: () {
-                      Navigator.pushNamed(
-                          context, ServiceRequirementScreen.routeName);
-                    },
-                    bkColor: AppColors.blue,
-                  ),
-                  const SizedBox(height: 20),
-                  AppButton(
-                    text: "احجز دورك الآن",
-                    icon: Icons.assignment_turned_in_rounded,
-                    onPress: () {
-                      Navigator.pushNamed(context, BookingScreen.routeName);
-                    },
-                    bkColor: AppColors.blue,
-                  ),
-                ],
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 26),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: context.height(0.02)),
+                    const Text(
+                      "ازاي نقدر نساعدك؟",
+                      style: AppStyles.blue34regular,
+                    ),
+                    SizedBox(height: context.height(0.03)),
+                    Image.asset(
+                      AppAssets.mainImg,
+                      height: context.height(0.35),
+                    ),
+                    SizedBox(height: context.height(0.05)),
+                    AppButton(
+                      text: "الاسئلة الشائعة",
+                      icon: Icons.question_answer_rounded,
+                      onPress: () {
+                        Navigator.pushNamed(context, FaqScreen.routeName);
+                      },
+                      bkColor: AppColors.blue,
+                    ),
+                    SizedBox(height: context.height(0.025)),
+                    AppButton(
+                      text: "متطلبات الخدمات",
+                      icon: Icons.list_alt_rounded,
+                      onPress: () {
+                        Navigator.pushNamed(
+                            context, ServiceRequirementScreen.routeName);
+                      },
+                      bkColor: AppColors.blue,
+                    ),
+                    SizedBox(height: context.height(0.025)),
+                    AppButton(
+                      text: "احجز دورك الآن",
+                      icon: Icons.assignment_turned_in_rounded,
+                      onPress: () {
+                        Navigator.pushNamed(context, BookingScreen.routeName);
+                      },
+                      bkColor: AppColors.blue,
+                    ),
+                  ],
+                ),
               ),
             )),
       ),

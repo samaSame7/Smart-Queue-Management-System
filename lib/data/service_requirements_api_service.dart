@@ -54,6 +54,7 @@ class ServiceRequirementsApiService {
   FaqDm _mapServiceJsonToFaqDm(Map<String, dynamic> json) {
     final idStr = (json['_id'] ?? json['id'] ?? '').toString();
     final name = (json['name'] ?? '').toString();
+    final description = (json['description'] ?? json['desc'] ?? '').toString();
 
     final requirementsRaw = json['requirements'];
     final requirements = <String>[];
@@ -64,14 +65,22 @@ class ServiceRequirementsApiService {
       }
     }
 
-    final content = requirements.isEmpty
-        ? 'لا توجد متطلبات'
-        : requirements.map((e) => '- $e').join('\n');
+    String content = "";
+    if (description.isNotEmpty) {
+      content += "$description\n\n";
+    }
+
+    if (requirements.isEmpty) {
+      content += 'لا توجد متطلبات';
+    } else {
+      content += "المتطلبات:\n";
+      content += requirements.map((e) => '- $e').join('\n');
+    }
 
     return FaqDm(
-      id: idStr.hashCode,
+      id: idStr,
       title: name,
-      content: content,
+      content: content.trim(),
     );
   }
 }

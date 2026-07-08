@@ -21,7 +21,7 @@ class _SplashScreen extends State<SplashScreen> {
   }
 
   void startTimer() {
-    Timer(const Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const OnboardingScreen()));
     });
@@ -40,7 +40,7 @@ class _SplashScreen extends State<SplashScreen> {
             children: [
               Image.asset(
                 AppAssets.fciLogo,
-                height: 180,
+                height: 150,
                 alignment: AlignmentGeometry.topLeft,
               ),
               const SizedBox(

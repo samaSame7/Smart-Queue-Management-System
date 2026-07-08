@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import '../../../core/utils/responsive_extensions.dart';
 import '../../../data/models/service_item.dart';
 import '../../../data/services_api_service.dart';
 import '../../../data/ticket_api_service.dart';
@@ -147,13 +148,14 @@ class _BookingScreenState extends State<BookingScreen> {
                     },
                   ),
                 const SizedBox(height: 40),
-                Expanded(
+                SizedBox(
+                  height: context.height(0.3),
                   child: Image.asset(
                     AppAssets.bookingImg,
                     color: AppColors.blue,
                   ),
                 ),
-                const SizedBox(height: 20),
+                const Spacer(),
                 AppButton(
                   isLoading: _isCreatingTicket,
                   onPress: () async {

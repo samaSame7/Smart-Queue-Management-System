@@ -47,7 +47,7 @@ class BuildServiceWidget extends StatelessWidget {
           title: Text(
             item.title,
             textAlign: TextAlign.right,
-            style: AppStyles.blue26regular,
+            style: AppStyles.blue26regular.copyWith(fontSize: 22),
           ),
           trailing: Icon(
             isOpen

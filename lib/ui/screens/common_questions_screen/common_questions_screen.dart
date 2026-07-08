@@ -17,7 +17,7 @@ class FaqScreen extends StatefulWidget {
 }
 
 class _FaqScreenState extends State<FaqScreen> {
-  int? _openId;
+  String? _openId;
   String _search = "";
   Timer? _debounce;
 
@@ -98,7 +98,30 @@ class _FaqScreenState extends State<FaqScreen> {
                         );
                       }
 
-                      final items = snapshot.data ?? [];
+                      final allItems = snapshot.data ?? [];
+                      final items = _search.trim().isEmpty
+                          ? allItems
+                          : allItems.where((e) {
+                              final queryWords = _search
+                                  .trim()
+                                  .toLowerCase()
+                                  .split(RegExp(r'\s+'));
+                              final title = e.title.toLowerCase();
+                              final content = e.content.toLowerCase();
+
+                              return queryWords.any((word) =>
+                                  title.contains(word) ||
+                                  content.contains(word));
+                            }).toList();
+
+                      if (items.isEmpty) {
+                        return const Center(
+                          child: Text(
+                            "لا توجد نتائج بحث",
+                            style: AppStyles.blue16regular,
+                          ),
+                        );
+                      }
 
                       return ListView.builder(
                         itemCount: items.length,

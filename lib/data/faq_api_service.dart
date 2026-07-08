@@ -61,14 +61,10 @@ class FaqApiService {
   }
 
   FaqDm _mapJsonToFaqDm(Map<String, dynamic> json) {
-    final idStr = (json['_id'] ?? json['id'] ?? '').toString();
-    final title = (json['question'] ?? '').toString();
-    final content = (json['answer'] ?? '').toString();
-
     return FaqDm(
-      id: idStr.hashCode,
-      title: title,
-      content: content,
+      id: (json['_id'] ?? json['id'] ?? '').toString(),
+      title: (json['question'] ?? '').toString(),
+      content: (json['answer'] ?? '').toString(),
     );
   }
 }

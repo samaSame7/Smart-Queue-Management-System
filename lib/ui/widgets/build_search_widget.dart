@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/utils/responsive_extensions.dart';
 import '../utils/app_colors.dart';
 import '../utils/app_styles.dart';
 
@@ -14,36 +15,40 @@ class BuildSearchWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        height: 45,
+        height: context.height(0.055),
         decoration: BoxDecoration(
-          color: AppColors.blue,
-          borderRadius: BorderRadius.circular(18),
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.darkBlue.withAlpha(26),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: TextField(
-                  cursorColor: AppColors.white,
-                  onChanged: onChanged,
-                  style: AppStyles.white16regular,
-                  decoration: const InputDecoration(
-                    hintText: 'بحث',
-                    hintStyle: AppStyles.white20regular,
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 8),
-                  ),
-                ),
-              ),
-              const Icon(
-                Icons.search,
-                color: Colors.white,
-                size: 20,
-              ),
-            ],
+        child: TextField(
+          onChanged: onChanged,
+          cursorColor: AppColors.blue,
+          style: AppStyles.blue16regular.copyWith(
+            fontSize: context.sp(16),
+          ),
+          decoration: InputDecoration(
+            hintText: 'بحث ...',
+            hintStyle: AppStyles.gray16regular.copyWith(
+              fontSize: context.sp(16),
+              color: AppColors.darkBlue.withAlpha(128),
+            ),
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: context.width(0.04),
+              vertical: context.height(0.012),
+            ),
+            prefixIcon: Icon(
+              Icons.search,
+              color: AppColors.blue,
+              size: context.sp(22),
+            ),
           ),
         ),
       ),
