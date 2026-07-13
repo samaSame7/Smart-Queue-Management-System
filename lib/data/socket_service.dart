@@ -13,6 +13,9 @@ class SocketService {
   Stream<Map<String, dynamic>> get ticketCalledStream => _ticketCalledController.stream;
   Stream<Map<String, dynamic>> get serviceStatsStream => _serviceStatsController.stream;
 
+  String? _subscribedServiceId;
+  String? _subscribedTicketId;
+
   void connect({String? token}) {
     if (_socket?.connected == true) return;
 
@@ -28,6 +31,10 @@ class SocketService {
           .build(),
     );
 
+    _socket!.on('connect', (_) {
+      _sendSubscription();
+    });
+
     _socket!.on('ticket:updated', (payload) {
       if (payload is Map) _ticketUpdatedController.add(Map<String, dynamic>.from(payload));
     });
@@ -39,11 +46,19 @@ class SocketService {
     });
   }
 
+  void _sendSubscription() {
+    if (_socket?.connected == true) {
+      _socket?.emit('subscribe', {
+        if (_subscribedServiceId != null && _subscribedServiceId!.isNotEmpty) 'serviceId': _subscribedServiceId,
+        if (_subscribedTicketId != null && _subscribedTicketId!.isNotEmpty) 'ticketId': _subscribedTicketId,
+      });
+    }
+  }
+
   void subscribe({String? serviceId, String? ticketId}) {
-    _socket?.emit('subscribe', {
-      if (serviceId != null && serviceId.isNotEmpty) 'serviceId': serviceId,
-      if (ticketId != null && ticketId.isNotEmpty) 'ticketId': ticketId,
-    });
+    _subscribedServiceId = serviceId;
+    _subscribedTicketId = ticketId;
+    _sendSubscription();
   }
 
   void unsubscribe({String? serviceId, String? ticketId}) {
@@ -51,6 +66,8 @@ class SocketService {
       if (serviceId != null && serviceId.isNotEmpty) 'serviceId': serviceId,
       if (ticketId != null && ticketId.isNotEmpty) 'ticketId': ticketId,
     });
+    _subscribedServiceId = null;
+    _subscribedTicketId = null;
   }
 
   void disconnect() {

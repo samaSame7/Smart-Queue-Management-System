@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:graduation_project/data/models/ticket_item.dart';
 import 'package:graduation_project/data/socket_service.dart';
@@ -25,6 +25,7 @@ class _TicketScreenState extends State<TicketScreen> {
   final SocketService _socketService = SocketService();
 
   StreamSubscription<Map<String, dynamic>>? _ticketUpdatedSub;
+  StreamSubscription<Map<String, dynamic>>? _ticketCalledSub;
   StreamSubscription<Map<String, dynamic>>? _serviceStatsSub;
 
   TicketItem? _ticket;
@@ -100,6 +101,14 @@ class _TicketScreenState extends State<TicketScreen> {
       });
     });
 
+    _ticketCalledSub = _socketService.ticketCalledStream.listen((payload) {
+      if ((payload['ticketId'] ?? '').toString() != args.id) return;
+      if (!mounted) return;
+      setState(() {
+        _status = 'in_progress';
+      });
+    });
+
     _serviceStatsSub = _socketService.serviceStatsStream.listen((payload) {
       if ((payload['serviceId'] ?? '').toString() != args.serviceId) return;
       final rem = payload['remaining'];
@@ -147,6 +156,7 @@ class _TicketScreenState extends State<TicketScreen> {
       _socketService.unsubscribe(serviceId: t.serviceId, ticketId: t.id);
     }
     _ticketUpdatedSub?.cancel();
+    _ticketCalledSub?.cancel();
     _serviceStatsSub?.cancel();
     _socketService.dispose();
     super.dispose();
